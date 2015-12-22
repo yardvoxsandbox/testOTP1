@@ -1,0 +1,12 @@
+{application, testOTP1,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { testOTP1_app, []}},
+  {env, []}
+ ]}.
