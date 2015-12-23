@@ -1,0 +1,2 @@
+#erl -pa ebin -s testOTP1
+erl -pa ebin -eval "application:start(testOTP1)"

@@ -5,10 +5,12 @@
 
 start() ->
    io:format("~nHello my name is testOTP1~n"),
-   timer:sleep(5000),
+   timer:sleep(3000),
    io:format("~nStarted Registered Name: hiya Spawned Process Receive Loop~n"),
    register(hiya, spawn(fun() -> loop() end)),
+   timer:sleep(2000),
    hiya ! anybodyhomeyet,
+   timer:sleep(2000),
    hiya ! {self(), timetotimeout},
 
  receive
@@ -24,6 +26,7 @@ loop() ->
  receive
   {Pid,DaMsg}->
      io:format("Spawned Process Received Pid ~p PreTimeoutMsg: ~p~n",[Pid,DaMsg]),
+     timer:sleep(2000),
      Pid ! {gotyourmsg,'now you can proceed to timeout'},
    loop();
   AnyMsg ->
