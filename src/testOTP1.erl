@@ -7,10 +7,15 @@ start() ->
    io:format("~nHello my name is testOTP1~n"),
    timer:sleep(3000),
     Handle = bitcask:open("testOTP1_database", [read_write]),
+    JunkHandle = bitcask:open("junktest_database", [read_write]),
     N = fetch(Handle),
+    Junk = fetch(JunkHandle),
     store(Handle, N+1),
+    store(JunkHandle, calendar:universal_time()),
     io:format("testOTP1 has been run ~p times~n",[N]),
+    io:format("Junk is ~p~n",[Junk]),
     bitcask:close(Handle),
+    bitcask:close(JunkHandle),
    io:format("~nStarted Registered Name: hiya Spawned Process Receive Loop~n"),
    register(hiya, spawn(fun() -> loop() end)),
    timer:sleep(2000),
@@ -28,6 +33,7 @@ start() ->
    io:format("TimeOut GoodBye from testOTP1.erl~n"),
    io:format("Doing init:stop~n"),
    init:stop().
+%   io:format("NotDoing init:stop~n").
 
 
 store(Handle, N) ->
